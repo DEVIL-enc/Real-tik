@@ -20,7 +20,7 @@
     <script src="js/auth.js"></script>
     <script src="js/ffmpeg-manager.js"></script>
     <script src="lib/ffmpeg.min.js"></script>
-    <script src="js/realesrgan-runner.js"></script>
+    <script src="js/anime4k-runner.js"></script>
 
     <style>
         :root {
@@ -839,9 +839,7 @@
         async function processAndDownload() {
             try {
                 ffmpeg.FS('writeFile', 'input.mp4', new Uint8Array(await currentFile.arrayBuffer()));
-
-                await runRealESRGAN("input.mp4");
-
+                await runAnime4K("input.mp4");
                 await ffmpeg.run('-itsscale', '2', '-i', 'input.mp4', '-c', 'copy', 'output.mp4');
                 const data = ffmpeg.FS('readFile', 'output.mp4');
                 const url = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
